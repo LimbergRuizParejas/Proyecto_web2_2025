@@ -1,0 +1,15 @@
+<%- include('../components/header') %>
+
+<h2>Restaurantes participantes</h2>
+<ul>
+  <% restaurantes.forEach(restaurante => { %>
+    <li>
+      <a href="/restaurante/<%= restaurante.id %>">
+        <img src="<%= restaurante.logo %>" alt="Logo" width="50" />
+        <%= restaurante.nombre %>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+
+<%- include('../components/footer') %>

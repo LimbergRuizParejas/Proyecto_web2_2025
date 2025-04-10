@@ -1,0 +1,48 @@
+<%- include('../components/header') %>
+
+<h2>Administrar Restaurantes</h2>
+
+<form method="POST" action="/admin/restaurantes">
+  <label>Nombre:</label>
+  <input type="text" name="nombre" required />
+  
+  <label>Logo (URL):</label>
+  <input type="text" name="logo" required />
+
+  <button type="submit">Agregar</button>
+</form>
+
+<hr />
+
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Logo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% restaurantes.forEach(r => { %>
+      <tr>
+        <td><%= r.id %></td>
+        <td><%= r.nombre %></td>
+        <td><img src="<%= r.logo %>" width="50" /></td>
+        <td>
+          <form method="POST" action="/admin/restaurantes/eliminar/<%= r.id %>" style="display:inline;">
+            <button type="submit" onclick="return confirm('¿Eliminar este restaurante?')">Eliminar</button>
+          </form>
+          <a href="/admin/restaurantes/<%= r.id %>/editar">
+            <button>Editar</button>
+          </a>
+          <a href="/admin/restaurantes/<%= r.id %>">
+            <button>Ver</button>
+          </a>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('../components/footer') %>

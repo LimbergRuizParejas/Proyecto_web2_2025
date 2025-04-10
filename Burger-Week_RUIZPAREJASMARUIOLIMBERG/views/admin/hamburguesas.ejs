@@ -1,0 +1,63 @@
+<%- include('../components/header') %>
+
+<h2>Administrar Hamburguesas</h2>
+
+<form method="POST" action="/admin/hamburguesas">
+  <label>Nombre:</label>
+  <input type="text" name="nombre" required />
+
+  <label>Descripción:</label>
+  <textarea name="descripcion" required></textarea>
+
+  <label>Precio:</label>
+  <input type="number" name="precio" step="0.01" required />
+
+  <label>Foto (URL):</label>
+  <input type="text" name="foto" required />
+
+  <label>Restaurante:</label>
+  <select name="restaurante_id" required>
+    <% restaurantes.forEach(r => { %>
+      <option value="<%= r.id %>"><%= r.nombre %></option>
+    <% }) %>
+  </select>
+
+  <button type="submit">Agregar</button>
+</form>
+
+<hr />
+
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Restaurante</th>
+      <th>Foto</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% hamburguesas.forEach(h => { %>
+      <tr>
+        <td><%= h.id %></td>
+        <td><%= h.nombre %></td>
+        <td><%= h.restaurante.nombre %></td>
+        <td><img src="<%= h.foto %>" width="50" /></td>
+        <td>
+          <form method="POST" action="/admin/hamburguesas/eliminar/<%= h.id %>" style="display:inline;">
+            <button type="submit" onclick="return confirm('¿Eliminar esta hamburguesa?')">Eliminar</button>
+          </form>
+          <a href="/admin/hamburguesas/<%= h.id %>/editar">
+            <button>Editar</button>
+          </a>
+          <a href="/admin/hamburguesas/<%= h.id %>">
+            <button>Ver</button>
+          </a>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('../components/footer') %>

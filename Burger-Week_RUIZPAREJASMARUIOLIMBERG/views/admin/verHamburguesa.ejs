@@ -1,0 +1,15 @@
+<%- include('../components/header') %>
+
+<h2>Detalles de Hamburguesa</h2>
+
+<p><strong>Nombre:</strong> <%= hamburguesa.nombre %></p>
+<p><strong>Descripción:</strong> <%= hamburguesa.descripcion %></p>
+<p><strong>Precio:</strong> $<%= hamburguesa.precio %></p>
+<p><strong>Restaurante:</strong> <%= hamburguesa.restaurante.nombre %></p>
+<p><strong>Foto:</strong></p>
+<img src="<%= hamburguesa.foto %>" width="200" />
+
+<br><br>
+<a href="/admin/hamburguesas">Volver</a>
+
+<%- include('../components/footer') %>

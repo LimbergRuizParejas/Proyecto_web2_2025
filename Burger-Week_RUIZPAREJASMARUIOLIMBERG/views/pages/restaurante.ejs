@@ -1,0 +1,17 @@
+<%- include('../components/header') %>
+
+<h2>Hamburguesas de <%= restaurante.nombre %></h2>
+<ul>
+  <% restaurante.hamburguesas.forEach(hamburguesa => { %>
+    <li>
+      <a href="/hamburguesa/<%= hamburguesa.id %>">
+        <img src="<%= hamburguesa.foto %>" width="100" />
+        <%= hamburguesa.nombre %>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/">← Volver al inicio</a>
+
+<%- include('../components/footer') %>

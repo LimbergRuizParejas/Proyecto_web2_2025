@@ -1,0 +1,28 @@
+<%- include('../components/header') %>
+
+<h2>Calificaciones Recibidas</h2>
+
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Hamburguesa</th>
+      <th>Restaurante</th>
+      <th>Puntuación</th>
+      <th>Probada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% calificaciones.forEach(c => { %>
+      <tr>
+        <td><%= c.id %></td>
+        <td><%= c.hamburguesa.nombre %></td>
+        <td><%= c.hamburguesa.restaurante.nombre %></td>
+        <td><%= c.puntuacion %></td>
+        <td><%= c.probada ? 'Sí' : 'No' %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('../components/footer') %>

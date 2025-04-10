@@ -1,0 +1,28 @@
+<%- include('../components/header') %>
+
+<h2><%= hamburguesa.nombre %></h2>
+<img src="<%= hamburguesa.foto %>" width="200" />
+<p><%= hamburguesa.descripcion %></p>
+<p><strong>Precio:</strong> Bs. <%= hamburguesa.precio %></p>
+<p><strong>Restaurante:</strong> <%= hamburguesa.restaurante.nombre %></p>
+
+<h3>Calificar esta hamburguesa</h3>
+<form method="POST" action="/calificar">
+  <input type="hidden" name="hamburguesa_id" value="<%= hamburguesa.id %>" />
+  <label>Puntuación (1 a 5):</label>
+  <input type="number" name="puntuacion" min="1" max="5" required />
+  <label>¿La probaste?</label>
+  <input type="checkbox" name="probada" />
+  <button type="submit">Enviar</button>
+</form>
+
+<h4>Calificaciones:</h4>
+<ul>
+  <% hamburguesa.calificaciones.forEach(c => { %>
+    <li>Puntuación: <%= c.puntuacion %> | Probada: <%= c.probada ? 'Sí' : 'No' %></li>
+  <% }) %>
+</ul>
+
+<a href="/restaurante/<%= hamburguesa.restaurante.id %>">← Volver</a>
+
+<%- include('../components/footer') %>

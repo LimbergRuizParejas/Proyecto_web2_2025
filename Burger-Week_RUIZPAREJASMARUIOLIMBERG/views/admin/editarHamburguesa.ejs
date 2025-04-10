@@ -1,0 +1,32 @@
+<%- include('../components/header') %>
+
+<h2>Editar Hamburguesa</h2>
+
+<form method="POST" action="/admin/hamburguesas/<%= hamburguesa.id %>">
+  <label>Nombre:</label>
+  <input type="text" name="nombre" value="<%= hamburguesa.nombre %>" required /><br />
+
+  <label>Descripción:</label>
+  <textarea name="descripcion" required><%= hamburguesa.descripcion %></textarea><br />
+
+  <label>Precio:</label>
+  <input type="number" name="precio" value="<%= hamburguesa.precio %>" step="0.01" required /><br />
+
+  <label>Foto (URL):</label>
+  <input type="text" name="foto" value="<%= hamburguesa.foto %>" required /><br />
+
+  <label>Restaurante:</label>
+  <select name="restaurante_id" required>
+    <% restaurantes.forEach(r => { %>
+      <option value="<%= r.id %>" <%= r.id === hamburguesa.restaurante_id ? 'selected' : '' %>>
+        <%= r.nombre %>
+      </option>
+    <% }) %>
+  </select><br />
+
+  <button type="submit">Guardar cambios</button>
+</form>
+
+<a href="/admin/hamburguesas">Volver</a>
+
+<%- include('../components/footer') %>
