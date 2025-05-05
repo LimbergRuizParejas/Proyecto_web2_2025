@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbumes y Canciones</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f3f3f3;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .album {
+      background: white;
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .album img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .album h2 {
+      margin-top: 15px;
+      font-size: 1.4em;
+      color: #222;
+    }
+    .canciones {
+      margin-top: 15px;
+    }
+    .cancion {
+      margin-bottom: 12px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    audio {
+      width: 100%;
+      max-width: 300px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎧 Álbumes del Artista</h1>
+  <div id="contenedor-albumes"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id_artista = params.get("id");
+
+    const contenedor = document.getElementById('contenedor-albumes');
+
+    if (!id_artista) {
+      contenedor.innerHTML = "<p style='color: red;'>⚠️ No se especificó el ID del artista. <a href='index.html'>Volver al inicio</a>.</p>";
+      throw new Error("Falta ID de artista en la URL");
+    }
+
+    fetch(`http://localhost:3000/api/albumes/artista/${id_artista}`)
+
+      .then(res => res.json())
+      .then(albumes => {
+        if (!albumes.length) {
+          contenedor.innerHTML = "<p>Este artista aún no tiene álbumes registrados.</p>";
+          return;
+        }
+
+        albumes.forEach(album => {
+          const albumDiv = document.createElement('div');
+          albumDiv.className = 'album';
+          albumDiv.innerHTML = `
+            <img src="http://localhost:3000/uploads/${album.imagen}" alt="${album.titulo}">
+            <h2>${album.titulo}</h2>
+            <div id="canciones-${album.id}" class="canciones"><p>Cargando canciones...</p></div>
+          `;
+          contenedor.appendChild(albumDiv);
+
+          fetch(`http://localhost:3000/api/canciones/album/${album.id}`)
+            .then(res => res.json())
+            .then(canciones => {
+              const contCanciones = document.getElementById(`canciones-${album.id}`);
+              contCanciones.innerHTML = "";
+              if (!canciones.length) {
+                contCanciones.innerHTML = "<p>Este álbum no tiene canciones aún.</p>";
+                return;
+              }
+              canciones.forEach(cancion => {
+                const cancionDiv = document.createElement('div');
+                cancionDiv.className = 'cancion';
+                cancionDiv.innerHTML = `
+                  <strong>${cancion.titulo}</strong><br>
+                  <audio controls src="http://localhost:3000/uploads/${cancion.archivo_mp3}"></audio>
+                `;
+                contCanciones.appendChild(cancionDiv);
+              });
+            })
+            .catch(err => {
+              document.getElementById(`canciones-${album.id}`).innerHTML = "<p>Error al cargar canciones.</p>";
+              console.error(err);
+            });
+        });
+      })
+      .catch(err => {
+        contenedor.innerHTML = "<p>Error al cargar álbumes.</p>";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

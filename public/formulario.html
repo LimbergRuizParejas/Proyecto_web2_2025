@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario | Admin Spotify</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f2f5;
+    }
+    h1 {
+      text-align: center;
+      color: #1db954;
+      margin-bottom: 40px;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto 50px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 25px;
+      padding: 12px;
+      background-color: #1db954;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #17a34a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎧 Formulario de Administración Spotify</h1>
+
+  <!-- Género -->
+  <form action="http://localhost:3000/api/generos" method="POST" enctype="multipart/form-data">
+    <h2>📀 Registrar Género</h2>
+    <label for="nombre-genero">Nombre del Género</label>
+    <input id="nombre-genero" type="text" name="nombre" required>
+
+    <label for="imagen-genero">Imagen</label>
+    <input id="imagen-genero" type="file" name="imagen" accept="image/*">
+    
+    <button type="submit">Guardar Género</button>
+  </form>
+
+  <!-- Artista -->
+  <form action="http://localhost:3000/api/artistas" method="POST" enctype="multipart/form-data">
+    <h2>👤 Registrar Artista</h2>
+    <label for="nombre-artista">Nombre del Artista</label>
+    <input id="nombre-artista" type="text" name="nombre" required>
+
+    <label for="id-genero">ID del Género</label>
+    <input id="id-genero" type="number" name="id_genero" required>
+
+    <label for="foto-artista">Foto del Artista</label>
+    <input id="foto-artista" type="file" name="foto" accept="image/*">
+
+    <button type="submit">Guardar Artista</button>
+  </form>
+
+  <!-- Álbum -->
+  <form action="http://localhost:3000/api/albumes" method="POST" enctype="multipart/form-data">
+    <h2>💿 Registrar Álbum</h2>
+    <label for="titulo-album">Título del Álbum</label>
+    <input id="titulo-album" type="text" name="titulo" required>
+
+    <label for="id-artista">ID del Artista</label>
+    <input id="id-artista" type="number" name="id_artista" required>
+
+    <label for="imagen-album">Imagen del Álbum</label>
+    <input id="imagen-album" type="file" name="imagen" accept="image/*">
+
+    <button type="submit">Guardar Álbum</button>
+  </form>
+
+  <!-- Canción -->
+  <form action="http://localhost:3000/api/canciones" method="POST" enctype="multipart/form-data">
+    <h2>🎵 Registrar Canción</h2>
+    <label for="titulo-cancion">Título de la Canción</label>
+    <input id="titulo-cancion" type="text" name="titulo" required>
+
+    <label for="id-album">ID del Álbum</label>
+    <input id="id-album" type="number" name="id_album" required>
+
+    <label for="archivo-mp3">Archivo MP3</label>
+    <input id="archivo-mp3" type="file" name="archivo_mp3" accept="audio/mpeg" required>
+
+    <button type="submit">Guardar Canción</button>
+  </form>
+
+</body>
+</html>

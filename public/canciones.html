@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canciones del Álbum</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .canciones-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cancion {
+      background: white;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .cancion h3 {
+      margin: 0 0 10px;
+      color: #222;
+    }
+
+    audio {
+      width: 100%;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎵 Canciones del Álbum</h1>
+  <div class="canciones-container" id="contenedor-canciones"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id_album = params.get("id");
+
+    const contenedor = document.getElementById("contenedor-canciones");
+
+    if (!id_album) {
+      contenedor.innerHTML = `
+        <p style="color: red; font-weight: bold;">
+          ⚠️ No se especificó un ID de álbum. <a href="index.html">Volver al inicio</a>
+        </p>`;
+      throw new Error("Falta el ID del álbum");
+    }
+
+    fetch(`http://localhost:3000/api/canciones/album/${id_album}`)
+      .then(res => res.json())
+      .then(canciones => {
+        if (!canciones.length) {
+          contenedor.innerHTML = "<p>Este álbum no tiene canciones registradas.</p>";
+          return;
+        }
+
+        canciones.forEach(cancion => {
+          const div = document.createElement('div');
+          div.className = 'cancion';
+          div.innerHTML = `
+            <h3>${cancion.titulo}</h3>
+            <audio controls src="http://localhost:3000/uploads/${cancion.archivo_mp3}"></audio>
+          `;
+          contenedor.appendChild(div);
+        });
+      })
+      .catch(err => {
+        contenedor.innerHTML = "<p>Error al cargar canciones.</p>";
+        console.error(err);
+      });
+  </script>
+
+</body>
+</html>

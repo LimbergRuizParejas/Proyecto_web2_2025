@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin | Spotify Práctico</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <h1>🎧 Panel Administrativo Spotify</h1>
+  <nav>
+    <button onclick="mostrarSeccion('generos')">Géneros</button>
+    <button onclick="mostrarSeccion('artistas')">Artistas</button>
+    <button onclick="mostrarSeccion('albumes')">Álbumes</button>
+    <button onclick="mostrarSeccion('canciones')">Canciones</button>
+  </nav>
+
+  <!-- GÉNEROS -->
+  <section id="generos" class="seccion activa">
+    <h2>Gestión de Géneros</h2>
+    <form id="form-genero" enctype="multipart/form-data">
+      <label for="nombre-genero">Nombre del género</label>
+      <input id="nombre-genero" type="text" name="nombre" placeholder="Ej: Rock" required>
+      <label for="imagen-genero">Imagen del género</label>
+      <input id="imagen-genero" type="file" name="imagen" accept="image/*">
+      <button type="submit">Guardar Género</button>
+    </form>
+    <ul id="lista-generos"></ul>
+  </section>
+
+  <!-- ARTISTAS -->
+  <section id="artistas" class="seccion">
+    <h2>Gestión de Artistas</h2>
+    <form id="form-artista" enctype="multipart/form-data">
+      <label for="nombre-artista">Nombre del artista</label>
+      <input id="nombre-artista" type="text" name="nombre" placeholder="Ej: Shakira" required>
+      <label for="id-genero-artista">Seleccionar Género</label>
+      <select id="id-genero-artista" name="id_genero" required></select>
+      <label for="foto-artista">Foto del artista</label>
+      <input id="foto-artista" type="file" name="foto" accept="image/*">
+      <button type="submit">Guardar Artista</button>
+    </form>
+    <ul id="lista-artistas"></ul>
+  </section>
+
+  <!-- ÁLBUMES -->
+  <section id="albumes" class="seccion">
+    <h2>Gestión de Álbumes</h2>
+    <form id="form-album" enctype="multipart/form-data">
+      <label for="titulo-album">Título del álbum</label>
+      <input id="titulo-album" type="text" name="titulo" placeholder="Ej: El Dorado" required>
+      <label for="id-artista-album">Seleccionar Artista</label>
+      <select id="id-artista-album" name="id_artista" required></select>
+      <label for="imagen-album">Imagen del álbum</label>
+      <input id="imagen-album" type="file" name="imagen" accept="image/*">
+      <button type="submit">Guardar Álbum</button>
+    </form>
+    <ul id="lista-albumes"></ul>
+  </section>
+
+  <!-- CANCIONES -->
+  <section id="canciones" class="seccion">
+    <h2>Gestión de Canciones</h2>
+    <form id="form-cancion" enctype="multipart/form-data">
+      <label for="titulo-cancion">Título de la canción</label>
+      <input id="titulo-cancion" type="text" name="titulo" placeholder="Ej: La Bicicleta" required>
+      <label for="id-album-cancion">Seleccionar Álbum</label>
+      <select id="id-album-cancion" name="id_album" required></select>
+      <label for="archivo-mp3">Archivo MP3</label>
+      <input id="archivo-mp3" type="file" name="archivo_mp3" accept="audio/mpeg">
+      <button type="submit">Guardar Canción</button>
+    </form>
+    <ul id="lista-canciones"></ul>
+  </section>
+
+  <script src="admin.js"></script>
+</body>
+</html>
